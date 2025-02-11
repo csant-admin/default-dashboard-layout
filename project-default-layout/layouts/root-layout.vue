@@ -31,20 +31,35 @@
                     <v-list dense>
                         <v-list-item
                             v-for="item in items"
-                                :key="item.title"
-                                link
-                                >
-                                    <v-list-item-content>
-                                        <v-list-item-title
-                                            class="ma-2"
+                            :key="item.title"
+                            link
+                            >
+                            <v-list-item-content>
+                                <v-list-item-title
+                                    v-if="item.title !== 'Logout'"
+                                    class="ma-2"
+                                    >
+                                    <v-icon>{{ item.icon }}</v-icon>
+                                    <span
+                                        class="pa-2"
+                                        >{{ item.title }}
+                                    </span>
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item 
+                            v-if="items.some(item => item.title === 'Logout')" link>
+                                <v-list-item-content>
+                                    <v-list-item-title
+                                        class="ma-2"
                                         >
-                                            <v-icon>{{ item.icon }}</v-icon>
-                                            <span
-                                                class="pa-2"
-                                                >{{ item.title }}
-                                            </span>
-                                        </v-list-item-title>
-                                    </v-list-item-content>
+                                        <v-icon>{{ items.find(item => item.title === 'Logout').icon }}</v-icon>
+                                        <span
+                                            class="pa-2"
+                                            >{{ items.find(item => item.title === 'Logout').title }}
+                                        </span>
+                                    </v-list-item-title>
+                            </v-list-item-content>
                         </v-list-item>
                     </v-list>
                 </v-navigation-drawer>
@@ -65,6 +80,7 @@
         { title: 'Dashboard', icon: 'mdi-view-dashboard' },
         { title: 'Account', icon: 'mdi-account' },
         { title: 'Settings', icon: 'mdi-cog' },
+        { title: 'Logout', icon: 'mdi-logout' },
     ];
 
     const isProduction = import.meta.env.PROD;
